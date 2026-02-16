@@ -31,6 +31,17 @@ fi
 
 # Copy monitoring script to /usr/local/bin
 echo -e "${YELLOW}[2/4] Installing monitoring script...${NC}"
+
+# If viewmon.sh doesn't exist locally, download it
+if [ ! -f "viewmon.sh" ]; then
+    echo -e "${YELLOW}viewmon.sh not found locally, downloading from repository...${NC}"
+    wget -qO viewmon.sh https://raw.githubusercontent.com/MrPinguiiin/viewmon/main/viewmon.sh
+    if [ $? -ne 0 ]; then
+        echo -e "${RED}✗ Failed to download viewmon.sh${NC}"
+        exit 1
+    fi
+fi
+
 cp viewmon.sh /usr/local/bin/viewmon
 chmod +x /usr/local/bin/viewmon
 
