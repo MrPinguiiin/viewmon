@@ -34,7 +34,9 @@ echo -e "${YELLOW}[2/4] Installing monitoring script...${NC}"
 
 # Always download the latest monitoring script
 echo -e "${YELLOW}[2/4] Downloading latest monitoring script...${NC}"
-wget -qO viewmon.sh https://raw.githubusercontent.com/MrPinguiiin/viewmon/main/viewmon.sh
+# Use a timestamp as cache buster
+CACHE_BUSTER=$(date +%s)
+wget -qO viewmon.sh "https://raw.githubusercontent.com/MrPinguiiin/viewmon/main/viewmon.sh?v=$CACHE_BUSTER"
 if [ $? -ne 0 ]; then
     echo -e "${RED}✗ Failed to download viewmon.sh${NC}"
     exit 1
@@ -65,7 +67,8 @@ YELLOW='\033[1;33m'
 NC='\033[0m'
 
 echo -e "${YELLOW}Updating ViewMon...${NC}"
-wget -qO /tmp/install.sh https://raw.githubusercontent.com/MrPinguiiin/viewmon/main/install.sh
+CACHE_BUSTER=$(date +%s)
+wget -qO /tmp/install.sh "https://raw.githubusercontent.com/MrPinguiiin/viewmon/main/install.sh?v=$CACHE_BUSTER"
 if [ $? -eq 0 ]; then
     mkdir -p /tmp/viewmon-upd
     cd /tmp/viewmon-upd
