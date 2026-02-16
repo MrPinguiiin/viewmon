@@ -19,11 +19,13 @@ Gunakan perintah satu baris berikut untuk menginstal:
 wget -qO install.sh https://raw.githubusercontent.com/MrPinguiiin/viewmon/main/install.sh && sudo bash install.sh
 ```
 
-Setelah instalasi selesai, Anda cukup mengetikkan perintah berikut di terminal:
+Setelah instalasi selesai, cukup ketik `viewmon` untuk membuka dashboard. Dashboard akan diperbarui secara **real-time** setiap 2 detik.
 
 ```bash
 viewmon
 ```
+
+**Tekan `Ctrl + C` untuk keluar.**
 
 ## Cara Uninstall
 

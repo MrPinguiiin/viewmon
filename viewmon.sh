@@ -195,12 +195,15 @@ get_top_processes() {
     echo -e "${RED}└─────────────────────────────────────────────────────────────────────────────┘${NC}\n"
 }
 
-# Main execution
-print_header "SYSTEM MONITORING DASHBOARD"
-get_cpu_info
-get_memory_info
-get_disk_info
-get_network_info
-get_top_processes
-
-echo -e "${CYAN}${BOLD}Press any key to refresh or Ctrl+C to exit${NC}"
+# Main execution in a loop
+while true; do
+    print_header "SYSTEM MONITORING DASHBOARD"
+    get_cpu_info
+    get_memory_info
+    get_disk_info
+    get_network_info
+    get_top_processes
+    
+    echo -e "${CYAN}${BOLD}Press Ctrl+C to exit (Refreshing every 2s)...${NC}"
+    sleep 2
+done
