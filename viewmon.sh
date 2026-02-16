@@ -195,15 +195,18 @@ get_top_processes() {
     echo -e "${RED}└─────────────────────────────────────────────────────────────────────────────┘${NC}\n"
 }
 
-# Main execution in a loop
-while true; do
+# Check if we are already running inside 'watch'
+if [ "$1" == "--internal-run" ]; then
     print_header "SYSTEM MONITORING DASHBOARD"
     get_cpu_info
     get_memory_info
     get_disk_info
     get_network_info
     get_top_processes
-    
-    echo -e "${CYAN}${BOLD}Press Ctrl+C to exit (Refreshing every 2s)...${NC}"
-    sleep 2
-done
+else
+    # Run watch command to refresh the dashboard
+    # -n 2: refresh every 2 seconds
+    # -c: interpret ANSI color sequences
+    # -t: turn off header
+    watch -n 2 -c -t "$0 --internal-run"
+fi
