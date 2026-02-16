@@ -26,7 +26,8 @@ CROSS="╬"
 
 # Function to print header
 print_header() {
-    clear
+    # Move cursor to top-left instead of clearing
+    printf "\033[H"
     local width=80
     echo -e "${CYAN}${TOP_LEFT}$(printf '%*s' $((width-2)) '' | tr ' ' "${HORIZONTAL}")${TOP_RIGHT}${NC}"
     echo -e "${CYAN}${VERTICAL}${BOLD}${WHITE}$(printf '%*s' $(((width + ${#1})/2)) "$1")$(printf '%*s' $(((width - ${#1})/2 - 2)) '')${NC}${CYAN}${VERTICAL}${NC}"
@@ -195,18 +196,24 @@ get_top_processes() {
     echo -e "${RED}└─────────────────────────────────────────────────────────────────────────────┘${NC}\n"
 }
 
-# Check if we are already running inside 'watch'
-if [ "$1" == "--internal-run" ]; then
+# Main execution
+# Hide cursor
+printf "\033[?25l"
+
+# Initial clear
+clear
+
+# Handle Ctrl+C
+trap 'printf "\033[?25h"; echo -e "\n${NC}Exiting..."; exit 0' SIGINT
+
+while true; do
     print_header "SYSTEM MONITORING DASHBOARD"
     get_cpu_info
     get_memory_info
     get_disk_info
     get_network_info
     get_top_processes
-else
-    # Run watch command to refresh the dashboard
-    # -n 2: refresh every 2 seconds
-    # -c: interpret ANSI color sequences
-    # -t: turn off header
-    watch -n 2 -c -t "$0 --internal-run"
-fi
+    
+    echo -ne "${CYAN}${BOLD}Press Ctrl+C to exit...${NC}\r"
+    sleep 1
+done
