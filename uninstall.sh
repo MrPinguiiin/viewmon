@@ -15,8 +15,18 @@ fi
 if [ -f /usr/local/bin/viewmon ]; then
     rm /usr/local/bin/viewmon
     echo -e "${GREEN}✓ viewmon removed successfully${NC}"
+fi
+
+if [ -f /usr/local/bin/viewmon-update ]; then
+    rm /usr/local/bin/viewmon-update
+    echo -e "${GREEN}✓ viewmon-update removed successfully${NC}"
+fi
+
+if [ ! -f /usr/local/bin/viewmon ] && [ ! -f /usr/local/bin/viewmon-update ]; then
+    # if both don't exist, we can assume it was removed or never there
+    :
 else
-    echo -e "${YELLOW}viewmon not found${NC}"
+    echo -e "${YELLOW}Some files could not be removed${NC}"
 fi
 
 echo -e "\n${GREEN}Uninstallation complete!${NC}"

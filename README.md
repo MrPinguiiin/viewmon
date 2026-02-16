@@ -27,6 +27,14 @@ viewmon
 
 **Tekan `Ctrl + C` untuk keluar.**
 
+## Cara Update
+
+Jika ada pembaruan di repository, Anda bisa memperbarui ViewMon secara otomatis dengan menjalankan:
+
+```bash
+viewmon-update
+```
+
 ## Cara Uninstall
 
 Untuk menghapus ViewMon dari sistem:

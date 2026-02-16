@@ -57,15 +57,37 @@ echo -e "${YELLOW}[3/4] Setting permissions...${NC}"
 chmod 755 /usr/local/bin/viewmon
 echo -e "${GREEN}✓ Permissions set${NC}\n"
 
+# Create update script
+echo -e "${YELLOW}[4/5] Installing update command...${NC}"
+cat << 'EOF' > /usr/local/bin/viewmon-update
+#!/bin/bash
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m'
+
+echo -e "${YELLOW}Updating ViewMon...${NC}"
+wget -qO /tmp/install.sh https://raw.githubusercontent.com/MrPinguiiin/viewmon/main/install.sh
+if [ $? -eq 0 ]; then
+    sudo bash /tmp/install.sh
+    echo -e "${GREEN}✓ ViewMon updated successfully!${NC}"
+else
+    echo -e "${RED}✗ Failed to download update${NC}"
+fi
+rm -f /tmp/install.sh
+EOF
+chmod +x /usr/local/bin/viewmon-update
+echo -e "${GREEN}✓ Update command installed to /usr/local/bin/viewmon-update${NC}\n"
+
 # Verify installation
-echo -e "${YELLOW}[4/4] Verifying installation...${NC}"
+echo -e "${YELLOW}[5/5] Verifying installation...${NC}"
 if command -v viewmon &> /dev/null; then
     echo -e "${GREEN}✓ Installation successful!${NC}\n"
     echo -e "${GREEN}================================${NC}"
     echo -e "${GREEN}Installation Complete!${NC}"
     echo -e "${GREEN}================================${NC}\n"
     echo -e "You can now run: ${BLUE}viewmon${NC}"
-    echo -e "From any directory as any user.\n"
+    echo -e "To update later, run: ${BLUE}viewmon-update${NC}\n"
 else
     echo -e "${RED}✗ Installation verification failed${NC}"
     exit 1
