@@ -67,7 +67,11 @@ NC='\033[0m'
 echo -e "${YELLOW}Updating ViewMon...${NC}"
 wget -qO /tmp/install.sh https://raw.githubusercontent.com/MrPinguiiin/viewmon/main/install.sh
 if [ $? -eq 0 ]; then
+    mkdir -p /tmp/viewmon-upd
+    cd /tmp/viewmon-upd
     sudo bash /tmp/install.sh
+    cd - > /dev/null
+    rm -rf /tmp/viewmon-upd
     echo -e "${GREEN}✓ ViewMon updated successfully!${NC}"
 else
     echo -e "${RED}✗ Failed to download update${NC}"
